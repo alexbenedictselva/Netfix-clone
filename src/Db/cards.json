@@ -1,0 +1,75 @@
+{
+    "cards": [
+      {
+        "name": "card1",
+        "path": "cards/card1.jpg",
+        "description": "Card 1"
+      },
+      {
+        "name": "card2",
+        "path": "cards/card2.jpg",
+        "description": "Description for Card 2"
+      },
+      {
+        "name": "card3",
+        "path": "cards/card3.jpg",
+        "description": "Description for Card 3"
+      },
+      {
+        "name": "card4",
+        "path": "cards/card4.jpg",
+        "description": "Description for Card 4"
+      },
+      {
+        "name": "card5",
+        "path": "cards/card5.jpg",
+        "description": "Description for Card 5"
+      },
+      {
+        "name": "card6",
+        "path": "cards/card6.jpg",
+        "description": "Description for Card 6"
+      },
+      {
+        "name": "card7",
+        "path": "cards/card7.jpg",
+        "description": "Description for Card 7"
+      },
+      {
+        "name": "card8",
+        "path": "cards/card8.jpg",
+        "description": "Description for Card 8"
+      },
+      {
+        "name": "card9",
+        "path": "cards/card9.jpg",
+        "description": "Description for Card 9"
+      },
+      {
+        "name": "card10",
+        "path": "cards/card10.jpg",
+        "description": "Description for Card 10"
+      },
+      {
+        "name": "card11",
+        "path": "cards/card11.jpg",
+        "description": "Description for Card 11"
+      },
+      {
+        "name": "card12",
+        "path": "cards/card12.jpg",
+        "description": "Description for Card 12"
+      },
+      {
+        "name": "card13",
+        "path": "cards/card13.jpg",
+        "description": "Description for Card 13"
+      },
+      {
+        "name": "card14",
+        "path": "cards/card14.jpg",
+        "description": "Description for Card 14"
+      }
+    ]
+  }
+  

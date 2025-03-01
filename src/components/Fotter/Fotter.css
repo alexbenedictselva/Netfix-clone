@@ -1,0 +1,24 @@
+.fotter {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 140px;
+  margin-bottom: 20px;
+  
+}
+.socials img {
+  width: 35px;
+}
+.socials {
+  display: flex;
+  flex-direction: row;
+  gap: 17px;
+  padding-left: 25px;
+}
+.descriptions{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 25px;
+}
+.descriptions .description p{
+    margin-top: 30px;
+}

@@ -1,0 +1,87 @@
+.logo{
+    position: absolute;
+    top: 3%;
+    width: 10%; 
+    left: 4%;
+}
+.login {
+    /* position: relative; */
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url('../../../assets/background_banner.jpg');
+    background-size: cover;
+    height: 99vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box{
+    width: 25%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.box h2{
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+.box .input1{
+    margin-bottom: 35px;
+}
+.box input{
+    width: 100%;
+    /* height: 100%; */
+    background-color: rgb(49, 47, 47);
+    border: none;
+    height: 40px;   
+    color: white;
+    font-size:16px ;
+    padding-left: 7px;
+    border-radius: 4px;
+}
+.box input[type="checkbox"]{
+    
+    height: auto;
+    width: 16px;
+    margin-right: 4px;
+}
+.box button {
+    cursor: pointer;
+    margin-top: 35px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: rgb(233, 59, 16);
+    color: white;
+    border: none;
+ 
+}
+.box button .link{
+    text-decoration: none;
+    color: inherit;
+}
+.box .remember{
+    margin-top: 7px;
+    display: flex;
+    justify-content: space-between;
+}
+.box .remember .rem{
+    display: flex;
+}
+.box .remember p{
+    cursor: pointer;
+}
+.box .sign-up{
+    color: rgb(156, 147, 147);
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box .sign-up span{
+    color: white;
+    cursor: pointer;
+}
