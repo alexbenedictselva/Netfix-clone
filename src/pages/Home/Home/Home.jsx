@@ -12,7 +12,6 @@ import cardsData1 from "../../../Db/cards_shuff.json";
 import cardsData2 from "../../../Db/cards.desc.json";
 import Card from "./components/cards";
 import Hero from "./components/Hero";
-import Fotter from "../../../components/Fotter/Fotter";
 const Home = () => {
   const [data, setData] = useState([]);
   const [data1, setData1] = useState([]);
@@ -63,14 +62,18 @@ const Home = () => {
   return (
     <div className="home">
       <Navbar />
-      <Hero hero={hero} hero_tit={hero_tit} play={play} info={info} />
-      <h1 className="sub">TOP PICKS FOR YOU</h1>
+      <div id="home">
+        <Hero hero={hero} hero_tit={hero_tit} play={play} info={info} />
+      </div>
+      <h1 className="sub" id="new-popular">New & Popular</h1>
       <Card db={data} />
-      <h1 className="sub">UPCOMING</h1>
+      <h1 className="sub" id="movies">Movies</h1>
       <Card db={data1} />
-      <h1 className="sub">ONLY ON NETFLIX</h1>
+      <h1 className="sub" id="tv-shows">TV Shows</h1>
       <Card db={data2} />
-      <Fotter />
+      <div className="copyright">
+        <p>© 2024 Alex. All rights reserved.</p>
+      </div>
     </div>
   );
 };

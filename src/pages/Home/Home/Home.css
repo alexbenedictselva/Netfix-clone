@@ -96,3 +96,16 @@
   text-decoration: none;
   color: white;
 }
+
+.copyright {
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 50px;
+  border-top: 1px solid #333;
+  color: #999;
+}
+
+.copyright p {
+  margin: 0;
+  font-size: 14px;
+}
