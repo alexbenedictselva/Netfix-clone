@@ -1,6 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Hero = ({hero,hero_tit,play,info}) => {
+  const navigate = useNavigate();
+
+  const handlePlayClick = () => {
+    navigate('/details/240643');
+  };
+
   return (
     <div>
       <div className="hero">
@@ -12,7 +19,7 @@ const Hero = ({hero,hero_tit,play,info}) => {
             eiusmod tempor incididunt ut labore et dolore magna aliqua. 
           </p>
         <div className="hero-btn">
-          <button className="btn"><img src={play}  />Play</button>
+          <button className="btn" onClick={handlePlayClick}><img src={play}  />Play</button>
           <button  className="btn dark-btn"><img src={info} />More Info</button>
         </div>
         </div>
