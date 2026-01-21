@@ -18,6 +18,9 @@ const Home = () => {
   const [data1, setData1] = useState([]);
   const [data2, setData2] = useState([]);
 
+  useEffect(() => {
+    console.log("HI",data);
+  }, [data]);
   const options = {
     method: "GET",
     headers: {
