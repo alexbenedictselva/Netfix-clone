@@ -3,11 +3,11 @@ import "./Details.css";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "../../../components/Navbar/Navbar/Navbar";
 import Youtube from "../../../assets/youtube_icon.png";
+
 const Details = () => {
-  const id = useParams();
-  const [img, setimg] = useState([]);
-  const [desc, setdesc] = useState([]);
-  const [genres, setgene] = useState([]);
+  const { id } = useParams();
+  const [movie, setMovie] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const options = {
     method: "GET",
@@ -19,58 +19,49 @@ const Details = () => {
   };
 
   useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/movie/${id.id}/images`, options)
-      .then((res) => res.json())
-      .then((res) => setimg(res.posters[0]))
-      .catch((err) => console.error(err));
-
-    fetch(`https://api.themoviedb.org/3/movie/${id.id}?language=en-US`, options)
-      .then((res) => res.json())
-      .then((res) => {
-        setdesc(res);
-        setgene(res.genres || []);
-      })
-      .catch((err) => console.error(err));
-    // setgene(desc.genres);
+    const fetchMovie = async () => {
+      try {
+        const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options);
+        const data = await response.json();
+        setMovie(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMovie();
   }, [id]);
-  //   console.log(desc);
+
+  if (loading) return <div className="details"><Navbar /><div className="loading">Loading...</div></div>;
+  if (!movie) return <div className="details"><Navbar /><div className="loading">Movie not found</div></div>;
 
   return (
-      <div className="details">
-          <Navbar />
-      <div className="detail">
-        <img
-          src={`https://image.tmdb.org/t/p/w500/${img.file_path}`}
-          className="img"
-        ></img>
-        <div className="desc_info">
-          <h1 className="title cen">{desc.original_title}</h1>
-          <p className="desc">
-            <span className="bold">Description</span> : {desc.overview}
-          </p>
-          <p className="desc">
-            <span className="bold">Run-Time</span> : {desc.runtime} minutes
-          </p>
-          <p className="desc">
-            <span className="bold">Release Date </span> : {desc.release_date}
-          </p>
-          <p className="desc">
-            <span className="bold">genres</span> :
-          </p>
-          <div>
-            {genres &&
-              genres.length > 0 &&
-              genres.map((genre) => (
-                <button key={genre.id} className="genre">
-                  {genre.name}
-                </button>
-              ))}
+    <div className="details">
+      <Navbar />
+      <div className="details-backdrop" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})` }}>
+        <div className="details-overlay"></div>
+      </div>
+      <div className="details-content">
+        <div className="details-poster">
+          <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+        </div>
+        <div className="details-info">
+          <h1 className="details-title">{movie.title}</h1>
+          <div className="details-meta">
+            <span className="rating">⭐ {movie.vote_average?.toFixed(1)}</span>
+            <span>{movie.release_date?.slice(0, 4)}</span>
+            <span>{movie.runtime} min</span>
           </div>
-          <Link className="youtube" to={`/player/${id.id}`}>
-            <div className="redirect">
-              <img src={Youtube}></img>
-              <p>Youtube</p>
-            </div>
+          <div className="details-genres">
+            {movie.genres?.map((genre) => (
+              <span key={genre.id} className="genre-tag">{genre.name}</span>
+            ))}
+          </div>
+          <p className="details-overview">{movie.overview}</p>
+          <Link to={`/player/${id}`} className="watch-button">
+            <img src={Youtube} alt="Play" />
+            <span>Watch Trailer</span>
           </Link>
         </div>
       </div>

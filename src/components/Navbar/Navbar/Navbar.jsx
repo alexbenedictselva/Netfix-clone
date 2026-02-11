@@ -30,6 +30,32 @@ const Navbar = () => {
         navRef.current.classList.remove("nav-dark");
       }
     });
+
+    // Close search on outside click
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.search-container')) {
+        setShowSearch(false);
+        setSearchQuery("");
+        setSearchResults([]);
+      }
+    };
+
+    // Close search on Escape key
+    const handleEscapeKey = (event) => {
+      if (event.key === 'Escape') {
+        setShowSearch(false);
+        setSearchQuery("");
+        setSearchResults([]);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscapeKey);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
   }, []);
 
   const handleSearch = async (query) => {
@@ -60,21 +86,40 @@ const Navbar = () => {
   };
 
   const handleNavClick = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (sectionId === 'all-items') {
+      navigate('/all-items');
+      return;
+    }
+    
+    // If not on home page, navigate to home first
+    if (window.location.pathname !== '/') {
+      navigate('/');
+      // Wait for navigation to complete, then scroll
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      // Already on home page, just scroll
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
   return (
     <div className="navbar" ref={navRef}>
       <div className="navbar-left">
-        <img src={logo} alt="" />
+        {/* <img src={logo} alt="" /> */}
         <ul>
           <li onClick={() => handleNavClick('home')}>Home</li>
           <li onClick={() => handleNavClick('tv-shows')}>TV Shows</li>
           <li onClick={() => handleNavClick('movies')}>Movies</li>
           <li onClick={() => handleNavClick('new-popular')}>New & Popular</li>
+          <li onClick={() => handleNavClick('all-items')}>All Items</li>
         </ul>
       </div>
       <div className="navbar-right">

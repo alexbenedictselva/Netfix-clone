@@ -5,6 +5,7 @@ import Home from './pages/Home/Home/Home'
 import Login from './pages/Home/Login/Login'
 import Player from './pages/Home/Player/Player'
 import Details from './pages/Home/Details/Details'
+import AllItems from './pages/AllItems/AllItems'
 import Navbar from './components/Navbar/Navbar/Navbar'
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/player/:id' element={<Player />} />
         <Route path='/details/:id' element={<Details />} />
+        <Route path='/all-items' element={<AllItems />} />
       </Routes>
     </div>
   )

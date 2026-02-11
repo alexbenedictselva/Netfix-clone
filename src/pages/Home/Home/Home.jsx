@@ -30,31 +30,33 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const fetching = () => {
-      fetch(
-        "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
-        options
-      )
-        .then((res) => res.json())
-        .then((res) => setData(res.results))
-        .catch((err) => console.error(err));
+    const fetchWithRetry = async (url, retries = 3) => {
+      for (let i = 0; i < retries; i++) {
+        try {
+          const response = await fetch(url, options);
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          return await response.json();
+        } catch (error) {
+          if (i === retries - 1) throw error;
+          await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
+        }
+      }
+    };
 
-      fetch(
-        "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
-        options
-      )
-        .then((res) => res.json())
-        .then((res) => setData1(res.results))
-        .catch((err) => console.error(err));
-    
-      fetch(
-        "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
-        options
-      )
-        .then((res) => res.json())
-        .then((res) => setData2(res.results))
-        .catch((err) => console.error(err));
-    }
+    const fetching = async () => {
+      try {
+        const [nowPlaying, upcoming, topRated] = await Promise.all([
+          fetchWithRetry("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1"),
+          fetchWithRetry("https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1"),
+          fetchWithRetry("https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1")
+        ]);
+        setData(nowPlaying.results || []);
+        setData1(upcoming.results || []);
+        setData2(topRated.results || []);
+      } catch (err) {
+        console.error("Failed to fetch movies:", err);
+      }
+    };
     fetching();
   }, []);
   console.log(data);
