@@ -1,18 +1,14 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import './Player.css';
-import back_button from '../../../assets/back_arrow_icon.png'
+import back_button from '../../../assets/back_arrow_icon.png';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const Player = () => {
-
-  const id = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [data, setData] = useState({
-    name: "",
-    key: "",
-    published_at: "",
-    typeof:""
-  });
+  const [video, setVideo] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   const options = {
     method: 'GET',
     headers: {
@@ -20,29 +16,59 @@ const Player = () => {
       Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzM5YjE2YzhkOGI4Y2I1MTY4MGUwY2ZiMGU3NjJhNyIsIm5iZiI6MTczMzI4NzExNi4xNTUsInN1YiI6IjY3NGZkY2NjNTIwMWY4YzE1ZjE3Nzg5MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gyHn-Diqr1cgmdH9AjXE_px16khB_VoQWECV2KfFiNo'
     }
   };
-  
-  useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/movie/${id.id}/videos?language=en-US`, options)
-      .then(res => res.json())
-      .then(res => setData(res.results[0]))
-      .catch(err => console.error(err));
-  },[])
 
-  console.log(id);
+  useEffect(() => {
+    const fetchVideo = async () => {
+      try {
+        const response = await fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`, options);
+        const data = await response.json();
+        setVideo(data.results?.[0] || null);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchVideo();
+  }, [id]);
 
   return (
     <div className='player'>
-      <img src={back_button} onClick={() => navigate(-1)} />
-      <iframe width='90%' height="90%" src={`https://www.youtube.com/embed/${data.key}`} title='trailer' allowFullScreen></iframe>
-      <div className="player_info">
-        <p>{data.name}</p>
-        <p>{data.published_at.slice(0,10)}</p>
-        <p>{data.type}</p>
+      <div className='player-header'>
+        <button className='back-button' onClick={() => navigate(-1)}>
+          <img src={back_button} alt='Back' />
+          <span>Back</span>
+        </button>
+      </div>
+      
+      <div className='player-container'>
+        {loading ? (
+          <div className='player-loading'>Loading...</div>
+        ) : video ? (
+          <>
+            <div className='video-wrapper'>
+              <iframe
+                src={`https://www.youtube.com/embed/${video.key}?autoplay=0&rel=0&modestbranding=1`}
+                title={video.name}
+                allowFullScreen
+                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+              ></iframe>
+            </div>
+            <div className='player-info'>
+              <h2>{video.name}</h2>
+              <div className='player-meta'>
+                <span className='meta-item'>{video.type}</span>
+                <span className='meta-divider'>•</span>
+                <span className='meta-item'>{new Date(video.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className='player-error'>No trailer available</div>
+        )}
       </div>
     </div>
-  )
+  );
+};
 
-  
-}
-
-export default Player
+export default Player;

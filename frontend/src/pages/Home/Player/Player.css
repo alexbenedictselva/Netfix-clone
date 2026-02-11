@@ -1,26 +1,143 @@
-.player{
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-}
-.player img{
-    position: absolute;
-    top :20px;
-    left: 20px;
-    width: 50px;
-    cursor: pointer;
+.player {
+  min-height: 100vh;
+  background: #000;
+  color: white;
+  padding: 0;
+  margin: 0;
 }
 
-.player iframe{
-    border-radius: 20px;
+.player-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 40px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+  z-index: 10;
 }
-.player_info{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    margin-top: 20px;
-    width: 90%;
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-5px);
+}
+
+.back-button img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+
+.player-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 100px 20px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.video-wrapper {
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.player-info {
+  width: 100%;
+  max-width: 900px;
+  margin-top: 30px;
+  padding: 0 20px;
+}
+
+.player-info h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  color: white;
+}
+
+.player-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  color: #aaa;
+}
+
+.meta-item {
+  color: #ccc;
+}
+
+.meta-divider {
+  color: #666;
+}
+
+.player-loading,
+.player-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  font-size: 24px;
+  color: #999;
+}
+
+.player-error {
+  color: #e50914;
+}
+
+@media (max-width: 768px) {
+  .player-header {
+    padding: 15px 20px;
+  }
+
+  .back-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .back-button img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .player-container {
+    padding: 80px 15px 30px;
+  }
+
+  .player-info h2 {
+    font-size: 24px;
+  }
+
+  .player-meta {
+    font-size: 14px;
+    flex-wrap: wrap;
+  }
 }
